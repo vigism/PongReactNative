@@ -30,7 +30,7 @@ export default class App extends Component{
       Constants.MAX_HEIGHT/2, 50, 50);
 
       let floor = Matter.Bodies.rectangle( Constants.MAX_WIDTH / 2, Constants.MAX_HEIGHT - 25, Constants.MAX_WIDTH, 50, { isStatic: true });
-      let ceiling = Matter.Bodies.rectangle( Constants.MAX_WIDTH / 2, 25, Constants.MAX_WIDTH, 50, { isStatic: true });
+      let ceiling = Matter.Bodies.rectangle( Constants.MAX_WIDTH / 2, 25, Constants.MAX_HEIGHT, 50, { isStatic: true });
 
       Matter.World.add(world, [bird, floor, ceiling]);
 
