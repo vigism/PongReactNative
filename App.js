@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar,TouchableOpacity,Text, Alert } from 'react-native';
 import Matter from "matter-js";
 import { GameEngine } from "react-native-game-engine";
 import Bird from './src/Bird';
@@ -62,6 +62,25 @@ export default class App extends Component{
       }
   }
 
+
+
+  onEvent = (e) => {
+    if (e.type === "game-over"){
+        Alert.alert("Game Over");
+        this.setState({
+            running: false
+        });
+    }
+}
+
+reset = () => {
+    this.gameEngine.swap(this.setupWorld());
+    this.setState({
+        running: true
+    });
+}
+
+
   render() {
     return (
         <View style={styles.container}>
@@ -70,9 +89,16 @@ export default class App extends Component{
                 style={styles.gameContainer}
                 running={this.state.running}
                 entities={this.entities}
+                onEvent={this.onEvent}
                 systems={[Physics]}>
+                  
                 <StatusBar hidden={true} />
             </GameEngine>
+            {!this.state.running && <TouchableOpacity style={styles.fullScreenButton} onPress={this.reset}>
+                    <View style={styles.fullScreen}>
+                        <Text style={styles.gameOverText}>Game Over</Text>
+                    </View>
+                </TouchableOpacity>}
         </View>
     );
 }
